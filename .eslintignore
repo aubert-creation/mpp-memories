@@ -1,0 +1,7 @@
+build/
+/.cache
+public/build/*
+node_modules/*
+remix.config.js
+server.js
+api/*

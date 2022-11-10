@@ -1,0 +1,72 @@
+{
+  "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "folderTemplates.structures": [
+    {
+      "name": "My Custom Template",
+      "customVariables": ["CustomVar"],
+      "omitParentDirectory": false,
+      "structure": [
+        {
+          "fileName": "<FTName>.tsx",
+          "template": "Typescript Functional Component"
+        },
+        {
+          "fileName": "index.ts",
+          "template": "IndexFile"
+        },
+        {
+          "fileName": "<FTName>.stories.tsx",
+          "template": "StoryFile"
+        }
+      ]
+    }
+  ],
+  "folderTemplates.fileTemplates": {
+    "Typescript Functional Component": [
+      "import Box from '@components/core/Box';",
+      "",
+      "type <FTName>Props = {",
+      "};",
+      "",
+      "const <FTName> = ({}: <FTName>Props) => {",
+      "  return <Box />;",
+      "};",
+      "",
+      "export default <FTName>;",
+      ""
+    ],
+    "IndexFile": ["import <FTName> from './<FTName>';", "", "export default <FTName>;", ""],
+    "StoryFile": [
+      "import type { ComponentStory } from '@storybook/react';",
+      "import <FTName> from './<FTName>';",
+      "",
+      "export default {",
+      "  component: <FTName>,",
+      "  title: 'core/<FTName>',",
+      "};",
+      "",
+      "const Template: ComponentStory<typeof <FTName>> = (arg) => (",
+      "  <<FTName> {...arg} />",
+      ");",
+      "",
+      "export const Default = Template.bind({});",
+      ""
+    ]
+  },
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.format.enable": true,
+  "i18n-ally.localesPaths": ["public/locales", "app/i18n"],
+  "i18n-ally.keystyle": "nested"
+}
