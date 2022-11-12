@@ -21,6 +21,7 @@ import {
   position,
   shadow,
   space,
+  grid
 } from 'styled-system';
 
 export type BoxProps = BorderProps &
@@ -51,6 +52,7 @@ const Box = styled.div<BoxProps>`
   ${borderStyle};
   ${borderRadius};
   ${flexbox};
+  ${grid};
   ${position};
   ${layout};
   ${shadow};

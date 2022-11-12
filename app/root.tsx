@@ -89,7 +89,6 @@ const App = () => {
       <body style={{ backgroundColor: theme.colors.white, overflowX: 'hidden', margin: 0 }}>
         <AppLoader>
           <Box display={{ _: 'none', lg: 'block' }}>
-            <Header />
             <Outlet />
           </Box>
 

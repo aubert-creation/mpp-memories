@@ -7,12 +7,7 @@ import Button from '@components/core/Button';
 import routes from '@nav/routes';
 import { useNavigate } from '@remix-run/react';
 
-export const loader: LoaderFunction = async ({ request }) => {
-  console.log('request', request);
-  return {};
-};
-
-const Index = () => {
+const SinglePlayer = () => {
   const navigate = useNavigate();
   
   return (
@@ -24,9 +19,8 @@ const Index = () => {
         minHeight={`calc(100vh - ${NAVBAR_HEIGHT}px)`}
         bg="white"
       >
-        <Button variant="primary" onClick={() => navigate(routes.singlePlayer())}>Singleplayer</Button>
-        <Button variant="secondary" onClick={() => navigate(routes.multiPlayer())}>Multiplayer</Button>
-
+        <Button variant="primary" onClick={() => navigate(routes.singlePlayer())}>Contre la montre</Button>
+        <Button variant="secondary" onClick={() => navigate(routes.game())}>Nombre de coup</Button>
       </Box>
 
       <Footer />
@@ -34,4 +28,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default SinglePlayer;
