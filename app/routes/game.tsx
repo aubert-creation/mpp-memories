@@ -108,8 +108,8 @@ const Game = () => {
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
-        marginLeft="20%"
-        width="60%"
+        marginLeft={{ _: 0, lg: '20%' }}
+        width={{ _: '100%', lg: '60%' }}
         minHeight="100%"
         bg="white"
       >
@@ -128,7 +128,7 @@ const Game = () => {
                 <Typo variant="header3">Nombre de coup: {count}</Typo>
                 <Typo variant="header3">Meilleur score: {highscore === Number.POSITIVE_INFINITY ? 0 : highscore}</Typo>
               </Box>
-              <Box display="grid" gridTemplateColumns="repeat(4, 1fr)">
+              <Box display="grid" gridTemplateColumns={{ _: "repeat(3, 1fr)", lg: "repeat(4, 1fr)" }}>
                 {cards.map((card, index) => (
                     <MemoCard
                       key={`${index}`}
