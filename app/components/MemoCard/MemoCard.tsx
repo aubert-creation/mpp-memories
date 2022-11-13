@@ -37,7 +37,14 @@ const MemoCard = ({ onClick, card, index, isHidden, isFlipped, isDisabled }: Mem
   };
 
   return (
-    <Box key={`${index}`} onClick={handleClick} width={{ _: 90, lg: 160 }} height={{ _: 130, lg: 220 }} style={{perspective: 350}} m={4} borderRadius={10}>
+    <Box 
+      key={`${index}`} 
+      onClick={handleClick} 
+      width={{ _: 90, lg: 160 }} 
+      height={{ _: 130, lg: 220 }} 
+      style={{perspective: 350}} 
+      m={{ _: 1, lg: 4 }}
+      borderRadius={10}>
       <Card isHidden={isHidden}>
           <BackCard key={`${index}-back`} animate={animationBack} src={"/images/card.png"} alt={card.type} draggable={false} />
           <FrontCard key={`${index}-front`} animate={animationFront} src={card.image} alt={card.type} draggable={false}  />

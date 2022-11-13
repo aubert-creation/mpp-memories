@@ -125,8 +125,8 @@ const Game = () => {
             
             <Box flexDirection="column" flexWrap="wrap" justifyContent="center">
               <Box display="flex" alignItems="center" justifyContent="space-between" my={5}>
-                <Typo variant="header3">Nombre de coup: {count}</Typo>
-                <Typo variant="header3">Meilleur score: {highscore === Number.POSITIVE_INFINITY ? 0 : highscore}</Typo>
+                <Typo variant={{ _: "bodyStrong", lg: "header3" }}>Nombre de coup: {count}</Typo>
+                <Typo variant={{ _: "bodyStrong", lg: "header3" }}>Meilleur score: {highscore === Number.POSITIVE_INFINITY ? 0 : highscore}</Typo>
               </Box>
               <Box display="grid" gridTemplateColumns={{ _: "repeat(3, 1fr)", lg: "repeat(4, 1fr)" }}>
                 {cards.map((card, index) => (
