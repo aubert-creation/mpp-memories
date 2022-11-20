@@ -1,7 +1,7 @@
 const routes = {
   home: () => '/',
   singlePlayer: () => '/game',
-  multiPlayer: () => '/multi-player',
+  multiPlayer: () => '/multigame',
   lobby: () => '/lobby',
 };
 
