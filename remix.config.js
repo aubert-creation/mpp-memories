@@ -6,9 +6,9 @@ const { getDependenciesToBundle } = require("@remix-run/dev");
 
 module.exports = {
   ignoredRouteFiles: ["**/.*"],
-  appDirectory: "app",
-  serverBuildTarget: "vercel",
-  server: process.env.NODE_ENV === "production" ? "./server.js" : undefined,
+  //appDirectory: "app",
+  //serverBuildTarget: "vercel",
+  serverBuildDirectory: "server/build",
   serverDependenciesToBundle: [
     /^nanoid.*/,
     /^remark.*/,

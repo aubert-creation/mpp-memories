@@ -6,7 +6,6 @@ import TextInput from '@components/core/TextInput';
 import Typo from '@components/core/Typo';
 import MemoCard from '@components/MemoCard';
 import { useChannel, useEvent } from '@harelpls/use-pusher';
-import { useFetcher } from '@remix-run/react';
 import { MPGLibrary, shuffleCards } from '@utils/data';
 import { customAlphabet, nanoid } from 'nanoid';
 import { useTranslation } from 'react-i18next';
@@ -14,7 +13,6 @@ import { useTranslation } from 'react-i18next';
 const user_id = nanoid();
 
 const Lobby = () => {
-  const fetcher = useFetcher();
   const { t } = useTranslation();
 
   const [cards, setCards] = useState([]);
@@ -166,14 +164,23 @@ const Lobby = () => {
     checkCompletion();
   }, [clearedCards]);
 
-  const trigger = (type, data) => {
+  const trigger = async (type, data) => {
     const event = {
       channel: lobbyId,
       type,
       data: JSON.stringify(data),
     };
 
-    fetcher.submit(event, { method: 'post', action: 'pusher/channels-event' });
+    const res = await fetch('/api/channels-event', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(event),
+    });
+    if (!res.ok) {
+      console.error('failed to push data');
+    }
   };
 
   const createLobby = () => {

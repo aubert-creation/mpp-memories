@@ -1,64 +1,98 @@
-import { resolve } from 'node:path';
-import type { EntryContext } from '@remix-run/node';
-import { RemixServer } from '@remix-run/react';
-import { createInstance } from 'i18next';
-import { renderToString } from 'react-dom/server';
-import { I18nextProvider, initReactI18next } from 'react-i18next';
-import { ThemeProvider, ServerStyleSheet } from 'styled-components';
-import i18n from '@i18n/i18n.server';
-import i18nextOptions from '@i18n/i18nextOptions';
+import { PassThrough } from 'stream';
+
+import { Response } from '@remix-run/node';
+import type { EntryContext, EntryContext } from '@remix-run/node';
+import { RemixServer, RemixServer } from '@remix-run/react';
 import theme from '@theme/theme';
-import resources from 'public/locales';
+import isbot from 'isbot';
+import { renderToPipeableStream, renderToString } from 'react-dom/server';
+import { ThemeProvider, ServerStyleSheet } from 'styled-components';
 
-process.on('unhandledRejection', (err, promise) => {
-  console.error(`Unhandled rejection (promise: ${promise}, reason: ${err})`);
-});
+const ABORT_DELAY = 5000;
 
-export default async function handleRequest(
+const handleRequest = (request: Request, responseStatusCode: number, responseHeaders: Headers, remixContext: EntryContext) =>
+  isbot(request?.headers?.get('user-agent'))
+    ? handleBotRequest(request, responseStatusCode, responseHeaders, remixContext)
+    : handleBrowserRequest(request, responseStatusCode, responseHeaders, remixContext);
+export default handleRequest;
+
+const handleBotRequest = (request: Request, responseStatusCode: number, responseHeaders: Headers, remixContext: EntryContext) =>
+  new Promise((resolve, reject) => {
+    let didError = false;
+
+    const { pipe, abort } = renderToPipeableStream(<RemixServer context={remixContext} url={request.url} />, {
+      onAllReady: () => {
+        const body = new PassThrough();
+
+        responseHeaders.set('Content-Type', 'text/html');
+
+        resolve(
+          new Response(body, {
+            headers: responseHeaders,
+            status: didError ? 500 : responseStatusCode,
+          })
+        );
+
+        pipe(body);
+      },
+      onShellError: (error: unknown) => {
+        reject(error);
+      },
+      onError: (error: unknown) => {
+        didError = true;
+
+        console.error(error);
+      },
+    });
+
+    setTimeout(abort, ABORT_DELAY);
+  });
+
+const handleBrowserRequest = (
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext
-) {
-  try {
+) =>
+  new Promise((resolve, reject) => {
+    let didError = false;
+
     const sheet = new ServerStyleSheet();
 
-    const instance = createInstance();
-    const lng = await i18n.getLocale(request);
-    const ns = i18n.getRouteNamespaces(remixContext);
-
-    await instance.use(initReactI18next).init({
-      ...i18nextOptions,
-      debug: false,
-      resources,
-      lng,
-      ns,
-      backend: {
-        loadPath: resolve('./', './public/locales/{{lng}}/{{ns}}.json'),
-      },
-    });
-
-    let markup = renderToString(
+    const { pipe, abort } = renderToPipeableStream(
       sheet.collectStyles(
-        <I18nextProvider i18n={instance}>
-          <ThemeProvider theme={theme}>
-            <RemixServer context={remixContext} url={request.url} />
-          </ThemeProvider>
-        </I18nextProvider>
-      )
+        <ThemeProvider theme={theme}>
+          <RemixServer context={remixContext} url={request.url} />
+        </ThemeProvider>
+      ),
+      {
+        onShellReady: () => {
+          const body = new PassThrough();
+
+          responseHeaders.set('Content-Type', 'text/html');
+
+          // const styles = sheet.getStyleTags();
+          // body.write(styles);
+
+          resolve(
+            new Response(body, {
+              headers: responseHeaders,
+              status: didError ? 500 : responseStatusCode,
+            })
+          );
+
+          pipe(body);
+        },
+        onShellError: (error: unknown) => {
+          reject(error);
+        },
+        onError: (error: unknown) => {
+          didError = true;
+
+          console.error(error);
+        },
+      }
     );
 
-    const styles = sheet.getStyleTags();
-    markup = markup.replace('__STYLES__', styles);
-
-    responseHeaders.set('Content-Type', 'text/html');
-
-    return new Response(`<!DOCTYPE html>${markup}`, {
-      status: responseStatusCode,
-      headers: responseHeaders,
-    });
-  } catch (error) {
-    console.error(`[MPG ERROR] ${error}`);
-    return undefined;
-  }
-}
+    setTimeout(abort, ABORT_DELAY);
+  });
