@@ -81,21 +81,17 @@ const Lobby = () => {
       const shuffledCards = shuffleCards(MPGLibrary);
       const selectCards = shuffledCards.slice(0, numberOfCards);
       const deck = selectCards.concat(selectCards);
-
-      trigger('client-init_game', {
+      const data = {
         current_player: players[index],
         deck,
-      });
+      };
+      trigger('client-init_game', data);
+      startGame(data);
     }
   });
 
   useEvent(channel, 'client-init_game', (data) => {
-    setSelectedCards([]);
-    setSelectedOpponentCards([]);
-    setClearedCards([]);
-    setCurrentPlayer(data.current_player);
-    setCards(data.deck);
-    setState('playing');
+    startGame(data);
   });
 
   useEvent(channel, 'client-next_turn', (data) => {
@@ -165,6 +161,14 @@ const Lobby = () => {
     checkCompletion();
   }, [clearedCards]);
 
+  const startGame = (data) => {
+    setSelectedCards([]);
+    setSelectedOpponentCards([]);
+    setClearedCards([]);
+    setCurrentPlayer(data.current_player);
+    setCards(data.deck);
+    setState('playing');
+  };
   /* const trigger = async (type, data) => {
     const event = {
       channel: lobbyId,
