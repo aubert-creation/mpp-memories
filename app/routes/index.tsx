@@ -19,15 +19,16 @@ const Index = () => {
       <Box
         flexDirection="column"
         justifyContent="center"
+        alignItems="center"
         minWidth="100%"
         minHeight={`calc(100vh - ${NAVBAR_HEIGHT}px)`}
         bg="white"
       >
         <Button width={200} variant="primary" onClick={() => navigate(routes.singlePlayer())} mb={5}>
-          Singleplayer
+          Partie en solo
         </Button>
         <Button width={200} variant="secondary" onClick={() => navigate(routes.multiPlayer())}>
-          Multiplayer
+          Partie en duo
         </Button>
       </Box>
 
