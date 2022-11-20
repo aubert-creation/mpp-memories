@@ -52,28 +52,28 @@ const Lobby = () => {
       setState('waiting_guest');
     } else {
       setState('waiting_host');
-      trigger('join_lobby', { username, user_id });
+      trigger('client-join_lobby', { username, user_id });
     }
   });
 
-  useEvent(channel, 'join_lobby', (data) => {
+  useEvent(channel, 'client-join_lobby', (data) => {
     setOponent(data);
     setScore({ ...score, [data.user_id]: 0 });
     if (isHost) {
-      trigger('update_host', { username, user_id });
+      trigger('client-update_host', { username, user_id });
     }
   });
 
-  useEvent(channel, 'update_host', (data) => {
+  useEvent(channel, 'client-update_host', (data) => {
     if (!isHost) {
       setOponent(data);
       setScore({ ...score, [data.user_id]: 0 });
       setState('starting_game');
-      trigger('ready', {});
+      trigger('client-ready', {});
     }
   });
 
-  useEvent(channel, 'ready', () => {
+  useEvent(channel, 'client-ready', () => {
     if (isHost) {
       const players = [user_id, oponent.user_id];
       const index = Math.floor(Math.random() * 2);
@@ -82,14 +82,14 @@ const Lobby = () => {
       const selectCards = shuffledCards.slice(0, numberOfCards);
       const deck = selectCards.concat(selectCards);
 
-      trigger('init_game', {
+      trigger('client-init_game', {
         current_player: players[index],
         deck,
       });
     }
   });
 
-  useEvent(channel, 'init_game', (data) => {
+  useEvent(channel, 'client-init_game', (data) => {
     setSelectedCards([]);
     setSelectedOpponentCards([]);
     setClearedCards([]);
@@ -98,7 +98,7 @@ const Lobby = () => {
     setState('playing');
   });
 
-  useEvent(channel, 'next_turn', (data) => {
+  useEvent(channel, 'client-next_turn', (data) => {
     setSelectedCards([]);
 
     if (data.cleared_cards) {
@@ -112,13 +112,13 @@ const Lobby = () => {
     setCurrentPlayer(data.current_player);
   });
 
-  useEvent(channel, 'selected_card', (data) => {
+  useEvent(channel, 'client-selected_card', (data) => {
     if (!isCurrentPlayer) {
       setSelectedOpponentCards(data.cards);
     }
   });
 
-  useEvent(channel, 'request_restart', () => {
+  useEvent(channel, 'client-request_restart', () => {
     setPendingRestart(true);
     setSelectedCards([]);
     setSelectedOpponentCards([]);
@@ -128,11 +128,11 @@ const Lobby = () => {
     }
   });
 
-  useEvent(channel, 'accept_restart', () => {
+  useEvent(channel, 'client-accept_restart', () => {
     setSelectedCards([]);
     setSelectedOpponentCards([]);
     setClearedCards([]);
-    trigger('ready', {});
+    trigger('client-ready', {});
   });
 
   useEffect(() => {
@@ -206,7 +206,7 @@ const Lobby = () => {
 
     if (cards[first].type === cards[second].type) {
       if (isCurrentPlayer) {
-        trigger('next_turn', {
+        trigger('client-next_turn', {
           current_player: oponent?.user_id,
           cleared_cards: { ...clearedCards, [cards[first].type]: true },
           score: {
@@ -220,7 +220,7 @@ const Lobby = () => {
 
     timeout.current = setTimeout(() => {
       if (isCurrentPlayer) {
-        trigger('next_turn', { current_player: oponent?.user_id });
+        trigger('client-next_turn', { current_player: oponent?.user_id });
       }
     }, 500);
   };
@@ -247,14 +247,14 @@ const Lobby = () => {
     if (selectedCards.length === 1) {
       setSelectedCards((prev) => {
         const newCards = [...prev, index];
-        trigger('selected_card', { cards: newCards });
+        trigger('client-selected_card', { cards: newCards });
         return newCards;
       });
       setCardsDisabled(true);
     } else {
       clearTimeout(timeout.current);
       setSelectedCards([index]);
-      trigger('selected_card', { cards: [index] });
+      trigger('client-selected_card', { cards: [index] });
     }
   };
 
@@ -267,9 +267,9 @@ const Lobby = () => {
     setScore({ [user_id]: 0, [oponent?.user_id]: 0 });
 
     if (isHost) {
-      trigger('request_restart', {});
+      trigger('client-request_restart', {});
     } else {
-      trigger('accept_restart', {});
+      trigger('client-accept_restart', {});
     }
   };
 
