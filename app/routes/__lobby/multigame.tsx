@@ -176,7 +176,7 @@ const Lobby = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: event,
+      body: JSON.stringify(event),
     });
     if (!res.ok) {
       console.error('failed to push data');
