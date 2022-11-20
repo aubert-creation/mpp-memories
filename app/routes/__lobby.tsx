@@ -7,6 +7,11 @@ const Lobby = () => {
     clientKey: 'aee979debed0ca127efc',
     cluster: 'eu',
     authEndpoint: 'https://mpp-memories-api.vercel.app/api/auth/',
+    auth: {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
     forceTLS: false,
   };
 

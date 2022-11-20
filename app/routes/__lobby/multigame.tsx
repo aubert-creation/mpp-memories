@@ -36,7 +36,7 @@ const Lobby = () => {
   const [pendingRestart, setPendingRestart] = useState(false);
 
   const channel = useChannel(lobbyId ? `private-${lobbyId}` : undefined);
-  const trigger = useClientTrigger(channel);
+  const trigger = useClientTrigger(channel || undefined);
 
   const numberOfCards = 10;
   const timeout = useRef(null);
