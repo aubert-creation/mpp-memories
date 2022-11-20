@@ -11,8 +11,6 @@ const bodyParser = require("body-parser");
 const Pusher = require('pusher');
 const dotenv = require("dotenv");
 
-const router = express.Router();
-
 dotenv.config();
 
 const pusher = new Pusher({
@@ -50,7 +48,7 @@ app.use(bodyParser.json());
 app.use(morgan("tiny"));
 
 
-router.post('/api/channels-event',(request,response) => {
+app.post('/api/channels-event',(request,response) => {  
   const { channel, type, data } = request.body;
 
   const event = {
@@ -62,9 +60,9 @@ router.post('/api/channels-event',(request,response) => {
   pusher.trigger(event.channel, event.type, JSON.stringify(event.data), () => {
     return 'sent event successfully';
   });
-});
 
-app.use("/", router);
+  response.status(200).send('sent event successfully');
+});
 
 app.all(
   "*",
