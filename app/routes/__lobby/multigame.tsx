@@ -171,7 +171,7 @@ const Lobby = () => {
       data: JSON.stringify(data),
     };
 
-    const res = await fetch('/api/channels-event', {
+    const res = await fetch('https://mpp-memories-api.vercel.app/api/channels-event', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
