@@ -388,6 +388,11 @@ const Lobby = () => {
           </Box>
         </Box>
       )}
+      <Box style={{ visibility: 'hidden', opacity: 0 }}>
+        {MPGLibrary.map((img) => (
+          <img key={img.type} src={img.image} alt={img.type} />
+        ))}
+      </Box>
     </Box>
   );
 };
