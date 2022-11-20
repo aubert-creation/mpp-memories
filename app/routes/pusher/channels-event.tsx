@@ -3,19 +3,19 @@ import { redirect } from '@remix-run/node';
 import * as dotenv from 'dotenv';
 import Pusher from 'pusher';
 
-dotenv.config();
-export const pusher = new Pusher({
-  appId: process.env.APP_ID,
-  key: process.env.KEY,
-  secret: process.env.SECRET,
-  cluster: process.env.CLUSTER,
-});
-
 export const loader: LoaderFunction = async () => {
   return redirect('/');
 };
 
 export const action: ActionFunction = async ({ request }) => {
+  dotenv.config();
+  const pusher = new Pusher({
+    appId: process.env.APP_ID,
+    key: process.env.KEY,
+    secret: process.env.SECRET,
+    cluster: process.env.CLUSTER,
+  });
+
   const requestText = await request.text();
   const form = new URLSearchParams(requestText);
 

@@ -39,6 +39,7 @@
     "react-router-dom": "^6.3.0",
     "react-use": "^17.4.0",
     "remix-i18next": "^4.0.0",
+    "remix-utils": "^4.1.0",
     "styled-components": "^5.3.5",
     "styled-system": "^5.1.5"
   },

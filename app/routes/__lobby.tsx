@@ -1,5 +1,6 @@
 import { PusherProvider } from '@harelpls/use-pusher';
 import { Outlet } from '@remix-run/react';
+import { ClientOnly } from 'remix-utils';
 
 const Lobby = () => {
   const config = {
@@ -8,9 +9,13 @@ const Lobby = () => {
   };
 
   return (
-    <PusherProvider {...config}>
-      <Outlet />
-    </PusherProvider>
+    <ClientOnly>
+      {() => (
+        <PusherProvider {...config}>
+          <Outlet />
+        </PusherProvider>
+      )}
+    </ClientOnly>
   );
 };
 
