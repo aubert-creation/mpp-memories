@@ -1,21 +1,20 @@
-import type { LoaderFunction, MetaFunction } from '@remix-run/node';
-import { json } from '@remix-run/node';
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from '@remix-run/react';
-import * as dotenv from 'dotenv';
-import { useTranslation } from 'react-i18next';
-import { QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { useChangeLanguage } from 'remix-i18next';
-import { useTheme } from 'styled-components';
 import Box from '@components/core/Box';
 import AppLoader from '@components/layout/AppLoader';
 import Header from '@components/layout/Header';
 import { initApi } from '@config/axiosConfig';
 import queryClient from '@config/reactQueryConfig';
 import remixI18n from '@i18n/i18n.server';
-
+import type { LoaderFunction, MetaFunction } from '@remix-run/node';
+import { json } from '@remix-run/node';
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from '@remix-run/react';
 import globalFontsUrl from '@theme/global.css';
 import { languages } from '@utils/date';
+import * as dotenv from 'dotenv';
+import { useTranslation } from 'react-i18next';
+import { QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { useChangeLanguage } from 'remix-i18next';
+import { useTheme } from 'styled-components';
 
 export const handle = {
   i18n: ['common'],
@@ -84,7 +83,6 @@ const App = () => {
       <head>
         <Meta />
         <Links />
-        {typeof document === 'undefined' ? '__STYLES__' : null}
       </head>
       <body style={{ backgroundColor: theme.colors.white, overflowX: 'hidden', margin: 0 }}>
         <AppLoader>
