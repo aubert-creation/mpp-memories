@@ -168,7 +168,7 @@ const Lobby = () => {
     const event = {
       channel: lobbyId,
       type,
-      data: JSON.stringify(data),
+      data,
     };
 
     const res = await fetch('https://mpp-memories-api.vercel.app/api/channels-event', {
@@ -176,7 +176,7 @@ const Lobby = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(event),
+      body: event,
     });
     if (!res.ok) {
       console.error('failed to push data');
