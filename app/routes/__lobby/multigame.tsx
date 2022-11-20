@@ -95,17 +95,7 @@ const Lobby = () => {
   });
 
   useEvent(channel, 'client-next_turn', (data) => {
-    setSelectedCards([]);
-
-    if (data.cleared_cards) {
-      setClearedCards(data.cleared_cards);
-    }
-
-    if (data.score) {
-      setScore(data.score);
-    }
-
-    setCurrentPlayer(data.current_player);
+    nextTurn(data);
   });
 
   useEvent(channel, 'client-selected_card', (data) => {
@@ -169,6 +159,20 @@ const Lobby = () => {
     setCards(data.deck);
     setState('playing');
   };
+
+  const nextTurn = (data) => {
+    setSelectedCards([]);
+
+    if (data.cleared_cards) {
+      setClearedCards(data.cleared_cards);
+    }
+
+    if (data.score) {
+      setScore(data.score);
+    }
+
+    setCurrentPlayer(data.current_player);
+  };
   /* const trigger = async (type, data) => {
     const event = {
       channel: lobbyId,
@@ -210,14 +214,16 @@ const Lobby = () => {
 
     if (cards[first].type === cards[second].type) {
       if (isCurrentPlayer) {
-        trigger('client-next_turn', {
+        const data = {
           current_player: oponent?.user_id,
           cleared_cards: { ...clearedCards, [cards[first].type]: true },
           score: {
             [user_id]: score[user_id] + 1,
             [oponent?.user_id]: score[oponent?.user_id],
           },
-        });
+        };
+        trigger('client-next_turn', data);
+        nextTurn(data);
       }
       return;
     }
@@ -225,6 +231,7 @@ const Lobby = () => {
     timeout.current = setTimeout(() => {
       if (isCurrentPlayer) {
         trigger('client-next_turn', { current_player: oponent?.user_id });
+        nextTurn({ current_player: oponent?.user_id });
       }
     }, 500);
   };
