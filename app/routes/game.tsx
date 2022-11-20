@@ -12,7 +12,7 @@ import { library, shuffleCards } from '@utils/data';
 import Typo from '@components/core/Typo';
 import MemoCard from '@components/MemoCard';
 
-const Game = () => {
+const SinglePlayer = () => {
   const [cards, setCards] = useState([]);
   const [selectedCards, setSelectedCards] = useState([]);
   const [clearedCards, setClearedCards] = useState([]);
@@ -133,11 +133,15 @@ const Game = () => {
                     <MemoCard
                       key={`${index}`}
                       card={card}
+                      back="/images/card.png"
                       index={index}
                       isDisabled={cardsDisabled}
                       isHidden={isHidden(card)}
                       isFlipped={isFlipped(index)}
                       onClick={handleCardClick}
+                      width={{ _: 90, lg: 160 }} 
+                      height={{ _: 125, lg: 220 }} 
+                      margin={{ _: 1, lg: 4 }}
                     />
                 ))}
               </Box>
@@ -149,4 +153,4 @@ const Game = () => {
   );
 };
 
-export default Game;
+export default SinglePlayer;

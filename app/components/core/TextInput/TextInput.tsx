@@ -6,7 +6,6 @@ import type { BoxProps } from '@components/core/Box';
 import Box from '@components/core/Box';
 import type { VariantInteractive } from '@components/core/types';
 import Typo from '@components/core/Typo';
-import LoupeUrl from '@assets/img/core/loupe.png';
 import Icon from '../Icon';
 import type { IconProps } from '../Icon';
 
@@ -94,9 +93,6 @@ const TextInput = ({
 export default TextInput;
 
 const InputContainer = styled.input<TextInputProps>`
-  background-image: ${({ small }) => small && `url(${LoupeUrl})`};
-  background-repeat: no-repeat;
-  background-position: ${({ theme }) => theme.radii[2]}px center;
   display: flex;
   align-items: center;
   width: 100%;

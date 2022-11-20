@@ -1,8 +1,8 @@
 const routes = {
   home: () => '/',
-  singlePlayer: () => '/single-player',
+  singlePlayer: () => '/game',
   multiPlayer: () => '/multi-player',
-  game: () => '/game',
+  lobby: () => '/lobby',
 };
 
 export default routes;

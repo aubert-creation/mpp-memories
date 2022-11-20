@@ -1,5 +1,7 @@
 {
-  "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+  "editor.codeActionsOnSave": [
+    "source.fixAll.eslint"
+  ],
   "[javascript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
@@ -15,7 +17,9 @@
   "folderTemplates.structures": [
     {
       "name": "My Custom Template",
-      "customVariables": ["CustomVar"],
+      "customVariables": [
+        "CustomVar"
+      ],
       "omitParentDirectory": false,
       "structure": [
         {
@@ -47,7 +51,12 @@
       "export default <FTName>;",
       ""
     ],
-    "IndexFile": ["import <FTName> from './<FTName>';", "", "export default <FTName>;", ""],
+    "IndexFile": [
+      "import <FTName> from './<FTName>';",
+      "",
+      "export default <FTName>;",
+      ""
+    ],
     "StoryFile": [
       "import type { ComponentStory } from '@storybook/react';",
       "import <FTName> from './<FTName>';",
@@ -65,8 +74,16 @@
       ""
     ]
   },
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
   "eslint.format.enable": true,
-  "i18n-ally.localesPaths": ["public/locales", "app/i18n"],
+  "i18n-ally.localesPaths": [
+    "public/locales",
+    "app/i18n"
+  ],
   "i18n-ally.keystyle": "nested"
 }

@@ -1,58 +1,88 @@
 import { useEffect, useRef, useState } from 'react';
-import styled, { css } from 'styled-components';
 
 import Box from '@components/core/Box';
 import Image from '@components/core/Image';
 import { AnimatePresence, motion, useAnimationControls } from 'framer-motion';
+import styled, { css } from 'styled-components';
 
 type MemoCardProps = {
   index?: string;
 };
 
-const MemoCard = ({ onClick, card, index, isHidden, isFlipped, isDisabled }: MemoCardProps) => {
+const MemoCard = ({
+  onClick,
+  card,
+  index,
+  back,
+  isHidden,
+  isFlipped,
+  isDisabled,
+  isOpponentPlaying,
+  isOpponentFlipped,
+  width,
+  height,
+  margin,
+}: MemoCardProps) => {
   const animRef = useRef(0);
   const animationFront = useAnimationControls();
   const animationBack = useAnimationControls();
 
-  const transitionFront = { type: "linear", duration: .14, delay: 0.12  }
-  const transitionBack = { type: "linear", duration: .14  }
-  
+  const [isFront, setIsFront] = useState(false);
+
+  const transitionFront = { type: 'linear', duration: 0.14, delay: 0.12 };
+  const transitionBack = { type: 'linear', duration: 0.14 };
+
   useEffect(() => {
-    if(animRef.current > 0) {
+    if (isOpponentFlipped && !isFlipped) {
+      setIsFront(true);
+      animRef.current++;
+      onClick(index);
+    }
+  }, [isOpponentFlipped]);
+
+  useEffect(() => {
+    if (animRef.current > 0) {
       if (isFlipped) {
         animationFront.start({ rotateY: [-90, 0], transition: transitionFront });
         animationBack.start({ rotateY: 90, transition: transitionBack });
       } else {
         animationFront.start({ rotateY: 90, transition: transitionBack });
         animationBack.start({ rotateY: [-90, 0], transition: transitionFront });
+
+        setTimeout(() => {
+          setIsFront(false);
+        }, 500);
       }
-    } 
+    }
   }, [isFlipped, animRef]);
 
   const handleClick = () => {
-    if(!isFlipped && !isDisabled && !isHidden) {
+    if (!isFlipped && !isDisabled && !isHidden) {
+      setIsFront(true);
       animRef.current++;
       onClick(index);
-    } 
+    }
   };
 
   return (
-    <Box 
-      key={`${index}`} 
-      onClick={handleClick} 
-      width={{ _: 90, lg: 160 }} 
-      height={{ _: 125, lg: 220 }} 
-      style={{perspective: 350}} 
-      m={{ _: 1, lg: 4 }}
-      borderRadius={10}>
+    <Box
+      key={`${index}`}
+      onClick={handleClick}
+      width={width}
+      height={height}
+      m={margin}
+      style={{ perspective: 350 }}
+      borderRadius={10}
+    >
       <Card isHidden={isHidden}>
-          <BackCard key={`${index}-back`} animate={animationBack} src={"/images/card.png"} alt={card.type} draggable={false} />
-          <FrontCard key={`${index}-front`} animate={animationFront} src={card.image} alt={card.type} draggable={false}  />
+        <BackCard key={`${index}-back`} animate={animationBack} src={back} alt={card.type} draggable={false} />
+        {isFront && (
+          <FrontCard key={`${index}-front`} animate={animationFront} src={card.image} alt={card.type} draggable={false} />
+        )}
       </Card>
     </Box>
   );
 };
-
 
 const baseCard = css`
   position: absolute;

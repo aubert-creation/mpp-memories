@@ -1,5 +1,6 @@
 {
-  "common": {
-    "title": "title"
-  }
+  "title": "title",
+  "waiting_guest": "En attente d'un invité",
+  "waiting_host": "En attente de  l'hôte",
+  "playing": "{{player}} est entrain de jouer"
 }
