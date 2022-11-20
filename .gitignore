@@ -5,7 +5,6 @@
 /.cache
 /build
 /public/build
-/api
 .env
 .env.prod
 build-storybook.log

@@ -8,17 +8,6 @@ const morgan = require("morgan");
 const { createRequestHandler } = require("@remix-run/express");
 const { createRequestHandler: remixCreateRequestHandler } = require("@remix-run/vercel");
 const bodyParser = require("body-parser");
-const Pusher = require('pusher');
-const dotenv = require("dotenv");
-
-dotenv.config();
-
-const pusher = new Pusher({
-  appId: process.env.APP_ID,
-  key: process.env.KEY,
-  secret: process.env.SECRET,
-  cluster: process.env.CLUSTER,
-});
 
 const MODE = process.env.NODE_ENV;
 const BUILD_DIR = path.join(process.cwd(), "server/build");
@@ -46,23 +35,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(morgan("tiny"));
-
-
-app.post('/api/channels-event',(request,response) => {  
-  const { channel, type, data } = request.body;
-
-  const event = {
-    channel: channel,
-    type: type,
-    data: JSON.parse(data),
-  };
-
-  pusher.trigger(event.channel, event.type, JSON.stringify(event.data), () => {
-    return 'sent event successfully';
-  });
-
-  response.status(200).send('sent event successfully');
-});
 
 app.all(
   "*",

@@ -649,40 +649,19 @@ var App = () => {
   columnNumber: 5
 }, this), root_default = RootWrapper;
 
-// app/routes/pusherold/channels-event.tsx
-var channels_event_exports = {};
-__export(channels_event_exports, {
-  action: () => action,
-  loader: () => loader2
-});
-var import_node3 = require("@remix-run/node"), dotenv2 = __toESM(require("dotenv")), import_pusher = __toESM(require("pusher")), loader2 = async () => (0, import_node3.redirect)("/"), pusher = new import_pusher.default({
-  appId: process.env.APP_ID,
-  key: process.env.KEY,
-  secret: process.env.SECRET,
-  cluster: process.env.CLUSTER
-}), action = async ({ request }) => {
-  dotenv2.config();
-  let requestText = await request.text(), form = new URLSearchParams(requestText), event = {
-    channel: form.get("channel"),
-    type: form.get("type"),
-    data: JSON.parse(form.get("data"))
-  };
-  return pusher.trigger(event.channel, event.type, JSON.stringify(event.data), () => "sent event successfully"), "ok";
-};
-
 // app/routes/__lobby.tsx
 var lobby_exports = {};
 __export(lobby_exports, {
   default: () => lobby_default
 });
 var import_use_pusher = require("@harelpls/use-pusher"), import_react4 = require("@remix-run/react"), import_remix_utils = require("remix-utils"), import_jsx_dev_runtime = require("react/jsx-dev-runtime"), Lobby = () => {
-  let config3 = {
+  let config2 = {
     clientKey: "aee979debed0ca127efc",
     cluster: "eu"
   };
   return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_remix_utils.ClientOnly, {
     children: () => /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_use_pusher.PusherProvider, {
-      ...config3,
+      ...config2,
       children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_react4.Outlet, {}, void 0, !1, {
         fileName: "app/routes/__lobby.tsx",
         lineNumber: 15,
@@ -13354,7 +13333,7 @@ var import_react_i18next3 = require("react-i18next"), import_jsx_dev_runtime = r
 var routes_exports = {};
 __export(routes_exports, {
   default: () => routes_default2,
-  loader: () => loader3
+  loader: () => loader2
 });
 
 // app/components/layout/Footer/Footer.tsx
@@ -13393,7 +13372,7 @@ var routes = {
 }, routes_default = routes;
 
 // app/routes/index.tsx
-var import_react7 = require("@remix-run/react"), import_jsx_dev_runtime = require("react/jsx-dev-runtime"), loader3 = async ({ request }) => ({}), Index = () => {
+var import_react7 = require("@remix-run/react"), import_jsx_dev_runtime = require("react/jsx-dev-runtime"), loader2 = async ({ request }) => ({}), Index = () => {
   let navigate = (0, import_react7.useNavigate)();
   return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_jsx_dev_runtime.Fragment, {
     children: [
@@ -13655,7 +13634,7 @@ var import_react9 = require("react"), import_react_router_dom = require("react-r
 }, __default2 = NotFoundRedirect;
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { version: "b7654c27", entry: { module: "/build/entry.client-3ATBO7KN.js", imports: ["/build/_shared/chunk-HCPEX5U6.js", "/build/_shared/chunk-DOU2LKAH.js", "/build/_shared/chunk-KVTH2YPO.js", "/build/_shared/chunk-QXD7WMEN.js", "/build/_shared/chunk-VFZ2QWLC.js", "/build/_shared/chunk-4IYZMDEG.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-3NCDGSES.js", imports: ["/build/_shared/chunk-6NBAEMJN.js", "/build/_shared/chunk-U5RPFLTA.js", "/build/_shared/chunk-NLR5HA33.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !0 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-GQSXM6SG.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/404": { id: "routes/404", parentId: "root", path: "404", index: void 0, caseSensitive: void 0, module: "/build/routes/404-Q5LVT4UH.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/__lobby": { id: "routes/__lobby", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/__lobby-XSPCUOVZ.js", imports: ["/build/_shared/chunk-VX3AGGRZ.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/__lobby/multigame": { id: "routes/__lobby/multigame", parentId: "routes/__lobby", path: "multigame", index: void 0, caseSensitive: void 0, module: "/build/routes/__lobby/multigame-OQ2RKYVP.js", imports: ["/build/_shared/chunk-IKDBXGBY.js", "/build/_shared/chunk-U5RPFLTA.js", "/build/_shared/chunk-3KASAC4Z.js", "/build/_shared/chunk-NLR5HA33.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/game": { id: "routes/game", parentId: "root", path: "game", index: void 0, caseSensitive: void 0, module: "/build/routes/game-XSUQC7GG.js", imports: ["/build/_shared/chunk-IKDBXGBY.js", "/build/_shared/chunk-3KASAC4Z.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-TQ3W24U7.js", imports: ["/build/_shared/chunk-3KASAC4Z.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/pusherold/channels-event": { id: "routes/pusherold/channels-event", parentId: "root", path: "pusherold/channels-event", index: void 0, caseSensitive: void 0, module: "/build/routes/pusherold/channels-event-W3QE2LPI.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, url: "/build/manifest-B7654C27.js" };
+var assets_manifest_default = { version: "106f4c5a", entry: { module: "/build/entry.client-5X7JBSEM.js", imports: ["/build/_shared/chunk-KPCLLHMZ.js", "/build/_shared/chunk-JP5RR6EI.js", "/build/_shared/chunk-3HMKWLPL.js", "/build/_shared/chunk-OV6LBITT.js", "/build/_shared/chunk-4BT3XYWX.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-YROS3OT2.js", imports: ["/build/_shared/chunk-AIGACDSB.js", "/build/_shared/chunk-WKDKWEJO.js", "/build/_shared/chunk-U6SNZPPW.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !0 }, "routes/$": { id: "routes/$", parentId: "root", path: "*", index: void 0, caseSensitive: void 0, module: "/build/routes/$-GOT54MB7.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/404": { id: "routes/404", parentId: "root", path: "404", index: void 0, caseSensitive: void 0, module: "/build/routes/404-ZLRHO4DO.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/__lobby": { id: "routes/__lobby", parentId: "root", path: void 0, index: void 0, caseSensitive: void 0, module: "/build/routes/__lobby-M2ORUN3U.js", imports: ["/build/_shared/chunk-FIXXCKKD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/__lobby/multigame": { id: "routes/__lobby/multigame", parentId: "routes/__lobby", path: "multigame", index: void 0, caseSensitive: void 0, module: "/build/routes/__lobby/multigame-FHKMJQGD.js", imports: ["/build/_shared/chunk-K6DLEWCG.js", "/build/_shared/chunk-WKDKWEJO.js", "/build/_shared/chunk-5PCJF4YD.js", "/build/_shared/chunk-U6SNZPPW.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/game": { id: "routes/game", parentId: "root", path: "game", index: void 0, caseSensitive: void 0, module: "/build/routes/game-SIHFWWFL.js", imports: ["/build/_shared/chunk-K6DLEWCG.js", "/build/_shared/chunk-5PCJF4YD.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-UEC5XS3Y.js", imports: ["/build/_shared/chunk-5PCJF4YD.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, url: "/build/manifest-106F4C5A.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", publicPath = "/build/", entry = { module: entry_server_exports }, routes2 = {
@@ -13666,14 +13645,6 @@ var assetsBuildDirectory = "public/build", publicPath = "/build/", entry = { mod
     index: void 0,
     caseSensitive: void 0,
     module: root_exports
-  },
-  "routes/pusherold/channels-event": {
-    id: "routes/pusherold/channels-event",
-    parentId: "root",
-    path: "pusherold/channels-event",
-    index: void 0,
-    caseSensitive: void 0,
-    module: channels_event_exports
   },
   "routes/__lobby": {
     id: "routes/__lobby",
