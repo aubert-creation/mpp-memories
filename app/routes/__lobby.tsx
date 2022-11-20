@@ -12,6 +12,7 @@ const Lobby = () => {
         'Content-Type': 'application/json',
       },
     },
+    authTransport: 'jsonp',
     forceTLS: false,
   };
 
