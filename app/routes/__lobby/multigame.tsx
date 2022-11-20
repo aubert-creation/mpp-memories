@@ -5,7 +5,7 @@ import Button from '@components/core/Button';
 import TextInput from '@components/core/TextInput';
 import Typo from '@components/core/Typo';
 import MemoCard from '@components/MemoCard';
-import { useChannel, useEvent } from '@harelpls/use-pusher';
+import { useChannel, useEvent, useClientTrigger } from '@harelpls/use-pusher';
 import { MPGLibrary, shuffleCards } from '@utils/data';
 import { customAlphabet, nanoid } from 'nanoid';
 import { useTranslation } from 'react-i18next';
@@ -35,7 +35,8 @@ const Lobby = () => {
   const [currentPlayer, setCurrentPlayer] = useState();
   const [pendingRestart, setPendingRestart] = useState(false);
 
-  const channel = useChannel(lobbyId ? `${lobbyId}` : undefined);
+  const channel = useChannel(lobbyId ? `private-${lobbyId}` : undefined);
+  const trigger = useClientTrigger(channel);
 
   const numberOfCards = 10;
   const timeout = useRef(null);
@@ -164,7 +165,7 @@ const Lobby = () => {
     checkCompletion();
   }, [clearedCards]);
 
-  const trigger = async (type, data) => {
+  /* const trigger = async (type, data) => {
     const event = {
       channel: lobbyId,
       type,
@@ -181,7 +182,7 @@ const Lobby = () => {
     if (!res.ok) {
       console.error('failed to push data');
     }
-  };
+  }; */
 
   const createLobby = () => {
     setIsHost(true);
